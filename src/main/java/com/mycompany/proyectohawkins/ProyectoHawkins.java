@@ -31,9 +31,14 @@ public class ProyectoHawkins {
             switch(opcionMenu) {
                 case 1: 
                     sensorMedido = leerLecturaSegura(sc, mensaje);
-                    break;
+                    evaluarNivelRiesgo(sensorMedido, LIMITE_RIESGO);
                 case 2:
                     simularMuestreoContinuo(sc, LIMITE_RIESGO);
+                case 0:
+                    
+                default:
+                    System.out.println("Opción no valida, vuelva a intentarlo.");
+                    break;
             }
         } while(opcionMenu != 0);
     }
@@ -68,7 +73,17 @@ public class ProyectoHawkins {
     
     
     
-    
+    public static int evaluarNivelRiesgo(double microTeslas, double LIMITE_RIESGO){
+        int cantidadRiesgo = 0;
+        if (microTeslas < 50){
+            cantidadRiesgo = 1;
+        } else if(microTeslas >=50 || microTeslas <=150){
+            cantidadRiesgo = 2;
+        } else
+            cantidadRiesgo = 3;
+        System.out.println(cantidadRiesgo == 1 ? "Seguro" : (cantidadRiesgo == 2 ? "Alerta" : "Critico"));
+        return cantidadRiesgo;     
+    } 
     
     
     
