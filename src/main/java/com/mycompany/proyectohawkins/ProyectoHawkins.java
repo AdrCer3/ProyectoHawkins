@@ -31,11 +31,21 @@ public class ProyectoHawkins {
             switch(opcionMenu) {
                 case 1: 
                     sensorMedido = leerLecturaSegura(sc, mensaje);
-                    evaluarNivelRiesgo(sensorMedido, LIMITE_RIESGO);
+                    codigoRiesgo = evaluarNivelRiesgo(sensorMedido, LIMITE_RIESGO);
+                    porcentajeEstado = calcularPorcentajeTruncado(sensorMedido, MAX_ENERGIA);
+                    portalAbierto = ejecutarProtocoloAccion(codigoRiesgo);
+                    System.out.println("El porcentaje actual de energía maxima es: " + porcentajeEstado);
+                    System.out.println("El nivel de peligro es: " + codigoRiesgo);
+                    if(portalAbierto = true){
+                        System.out.println("hay un portal abierto");
+                    } else {
+                        System.out.println("No se detectan portales");
+                    }
                 case 2:
                     simularMuestreoContinuo(sc, LIMITE_RIESGO);
                 case 0:
-                    
+                    System.out.println("Cerrando sesión");
+                    break;
                 default:
                     System.out.println("Opción no valida, vuelva a intentarlo.");
                     break;
@@ -88,15 +98,36 @@ public class ProyectoHawkins {
     
     
     
+    public static int calcularPorcentajeTruncado(double lectura, double MAX_ENERGIA){
+        double calculo = (lectura / MAX_ENERGIA) * 100;
+        int calculot = (int)calculo;
+        return calculot;
+    }
     
     
     
-    
-    
-    
-    
-    
-    
+    public static boolean ejecutarProtocoloAccion(int codigoRiesgo){
+        int protocolo = 0;
+        boolean accion = false;
+        switch(protocolo){
+            case 1:
+                System.out.println("Moodo estable");
+                accion = false;
+                break;
+            case 2:
+                System.out.println("Anomalia detectada");
+                accion = false;
+                break;
+            case 3:
+                System.out.println("ALERTA MAXIMA");
+                accion = true;
+                break;
+            default:
+                System.out.println("Codigo no valido");
+                accion = false;
+        }
+        return accion;
+    }
     
     
     
